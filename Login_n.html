@@ -1,0 +1,37 @@
+<!-- <h3><%= _('Returning customer').translate() %></h3>
+<p><%= _('Sign in below to checkout with an existing account:').translate() %></p> -->
+
+<div data-type="alert-placeholder"></div>
+
+<form>
+    <div class="ps-form--review">
+        <h2 class="ps-form__title"><%= _('Login').translate() %></h2>
+		<div class="control-group">
+			<label class="ps-form__label"><%= _('Username or email address *').translate() %></label>
+			<div class="controls">
+				<input autofocus type="email" name="email" id="login-email" class="form-control ps-form__input">
+			</div>
+		</div>
+
+		<div class="ps-form__group">
+			<label class="ps-form__label"><%= _('Password *').translate() %></label>
+			<div class="input-group">
+				<input type="password" name="password" id="login-password" class="form-control ps-form__input">
+                <div class="input-group-append"><a class="fa fa-eye-slash toogle-password" href="#"></a></div>
+			</div>
+		</div>
+
+		<div class="ps-form__submit sign-in-actions">
+			<button type="submit" class="ps-btn ps-btn--warning">
+				<%= _('Sign In').translate() %>
+			</button>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="remember">
+                <label class="form-check-label" for="remember">Remember me</label>
+            </div>
+		</div>
+        <a class="ps-account__link" data-type="forgot-password" href="/forgot-password">
+            <%=_('Lost your password?').translate()%>
+        </a>
+    </div>
+</form>

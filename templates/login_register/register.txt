@@ -1,0 +1,16 @@
+<!-- <p class="register-form-legend">
+	<%= _('Create an account and take advantage of faster checkouts and other great benefits.').translate() %>
+</p> -->
+
+<form class="register-form" method="POST">
+	<div class="ps-form--review">
+		<h2 class="ps-form__title">Register</h2>
+		<%= registerFormFields() %>
+		
+		<div class="form-actions registration-actions ps-form__submit">
+			<button type="submit" class="ps-btn ps-btn--warning">
+				<%= _('Register').translate() %>
+			</button>
+		</div>
+	</div>
+</form>

@@ -1,0 +1,23 @@
+<!-- <header class="page-header login-header">
+	<h3><%= _('Sign In').translate() %></h3>
+</header> -->
+
+<div class="ps-account">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6" data-placeholder="Login"></div>
+            <% if (view.enableRegister) { %>
+                <div class="col-12 col-md-6">
+                    <h3><%= _('New customer').translate() %></h3>
+
+                    <% if (view.enableCheckoutAsGuest) { %>
+                        <div class="" data-placeholder="CheckoutAsGuest"></div>
+                    <% } %>
+
+                    <div class="<% if (view.enableCheckoutAsGuest) { %>collapse <% } %>register" data-placeholder="Register"></div>
+                </div>
+            <% } %>
+            
+        </div>
+    </div>
+</div>

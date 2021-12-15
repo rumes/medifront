@@ -1,0 +1,4 @@
+<div class="row">
+	<div class="span12" data-cms-area="cms-landing-page-placeholder-page-type" data-cms-area-filters="page_type"></div>
+	<div class="span12" data-cms-area="cms-landing-page-placeholder-path" data-cms-area-filters="path"></div>
+</div>
