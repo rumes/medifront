@@ -1069,7 +1069,7 @@
                         </div>
                     </div>
                     <div class="ps-section__carousel">
-                        <div class="owl-carousel promo-cor" data-owl-auto="false" data-owl-loop="true" data-owl-speed="13000"
+                        <div id="promo-cor" class="owl-carousel promo-cor" data-owl-auto="false" data-owl-loop="true" data-owl-speed="13000"
                             data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="5"
                             data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="5"
                             data-owl-item-xl="5" data-owl-duration="1000" data-owl-mousedrag="on">
@@ -2390,6 +2390,7 @@
 <script>
     $( document ).ready(function() {
         var category_request = categoryList();
+        productList();
     });
 
     function categoryList(){
@@ -2406,25 +2407,49 @@
             console.log("error",err)
         })
         .always(function(){
-            productList();
+            
         })
     }
 
     function productList(){
+        
         $.getJSON("/app/site/hosting/scriptlet.nl?script=166&deploy=1&action=getItems")
         .done(function (data) {
-            $parent = $( ".promo-cor" );
-            $.each(data,function (index, value) {
-                $element = createPromotionalItems(value);
-               $parent.append($element);
-            })
+            createPromotionalCourosol(data);
         })
-    }
 
+    }
+    function createPromotionalCourosol(data){
+        $parent = $( ".promo-cor" );
+        var $owl = $("#promo-cor");
+        $owl.trigger('destroy.owl.carousel'); 
+        $owl.find('.owl-stage-outer').children().unwrap();
+        $owl.removeClass("owl-center owl-loaded owl-text-select-on");
+            $.each(data,function (index, value) {
+                if(value.values.storedisplaythumbnail.length > 0 && value.values.custitem_zm_cmb_web_promo_item){
+                    $element = createPromotionalItems(value);
+                    $parent.append($element)
+                    
+            }
+            
+            });
+        
+        $owl.owlCarousel({
+            navigation: true,
+            items: 2,
+            itemsDesktopSmall: [1024, 3],
+            itemsTablet: [600, 1],
+            itemsMobile: [479, 1]
+        });
+    }
     function createPromotionalItems(item) {
         var element = "";
-        if(item.values.storedisplaythumbnail.length > 0 && item.values.custitem_zm_cmb_web_promo_item){
-            element = ` <div class="ps-product ps-product--standard"><div class="ps-product__thumbnail">
+        
+       
+            console.log(item.values.storedisplaythumbnail[0].text);
+            element = ` 
+            <div class="promo-items">   
+                <div class="ps-product ps-product--standard"><div class="ps-product__thumbnail">
                     <a class="ps-product__image"  href="product1.html">
                         <figure>
                             <img src="`+item.values.storedisplaythumbnail[0].text+`" alt="alt" />
@@ -2480,13 +2505,13 @@
                             </svg>
                         </div>
                         <p class="qty-alert text-danger " style="display: none">Only <span>0</span>items available</p>
-                        <div class="type" style="color : #212d50">OTC Product</div>
+                        <div class="type" style="color : #212d50">`+item.values.custitem_wb_sto_prod_typ[0].text+`</div>
                     </div>
 
 
                     <div class="w-100 mymed-btn-group">
-                        <a href="javascript:void(0)" data-pid="617a8335bd819" class="btn buyNow buyNowBtn">Buy Now</a>
-                        <a href="javascript:void(0)" class="btn addTocart" id="617a8335bd819" data-pid="617a8335bd819" data-price="1350">Add to Cart</a>
+                        <a href="javascript:void(0)" data-pid="`+item.id+`" class="btn buyNow buyNowBtn">Buy Now</a>
+                        <a href="javascript:void(0)" class="btn addTocart" id="`+item.id+`" data-pid="`+item.id+`" data-price="`+item.values.baseprice+`">Add to Cart</a>
                     </div>
 
                     <div class="ps-product__desc">
@@ -2527,8 +2552,9 @@
                             </a>
                         </div>
                     </div>
-                </div>`
-        }
+                </div>
+            </div>`
+       
         
                 return element;
     }
